@@ -1,7 +1,38 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+import Script from 'next/script'
+import { DefaultSeo } from 'next-seo'
+
+import initializeAmplify from '@/apis/amplify/initialize'
+import defaultSeoConfig from '@/config/default-seo'
+import Modules from '@/modules/index'
+
+initializeAmplify()
+
+const GTAG_ID = process.env.NEXT_PUBLIC_GTAG_ID
+
+const App = ({ Component, pageProps }) => {
+  return (
+    <>
+      <DefaultSeo {...defaultSeoConfig} />
+      <Script
+        id='gtag-manager-script'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+            (function(w,d,s,l,i){w[l] = w[l] || [];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','${GTAG_ID}');
+          `,
+        }}
+      />
+      <Modules>
+        <Component {...pageProps} />
+      </Modules>
+    </>
+  )
 }
 
-export default MyApp
+export default App
