@@ -5,11 +5,13 @@ const Home = () => {
   const currentUser = useAuth.use.current()
 
   return (
-    <div className='container'>
+    <div className='h-full w-full'>
       {!currentUser ? (
         <Link href='/auth/login'>Login</Link>
       ) : (
-        <p>Select a section from the sidebar</p>
+        <div className='flex h-full w-full items-center justify-center'>
+          <p>Select a section from the sidebar</p>
+        </div>
       )}
     </div>
   )
