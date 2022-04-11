@@ -4,9 +4,29 @@ import { propOr } from 'ramda'
 import handleApiError from '@/utils/handle-api-error'
 
 const ProgramApis = {
-  getAllPrograms: () => API.get('user', '/program', {}).catch(handleApiError),
+  getAllPrograms: () =>
+    API.get('user', '/program-admin', {}).catch(handleApiError),
   getProgram: (id) =>
-    API.get('user', `/program/${id}`, {}).catch(handleApiError),
+    API.get('user', `/program-admin/${id}`, {}).catch(handleApiError),
+  getProgramRegistrations: (id) =>
+    API.get('user', `/program/${id}/registration-option`, {}).catch(
+      handleApiError,
+    ),
+  createProgramRegistrationOption: ({
+    id,
+    type,
+    title,
+    price,
+    schedule,
+    registrationLimit,
+  }) =>
+    API.post('user', '/program/registration-option', {
+      body: { id, type, title, price, schedule, registrationLimit },
+    }).catch(handleApiError),
+  deleteProgramRegistrationOption: ({ id, optionId }) =>
+    API.del('user', `/program/${id}/registration-option/${optionId}`, {}).catch(
+      handleApiError,
+    ),
   createProgram: () => API.post('user', '/program', {}).catch(handleApiError),
   updateProgram: (data) =>
     API.put('user', '/program', {

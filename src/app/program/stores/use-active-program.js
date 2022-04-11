@@ -1,4 +1,5 @@
 import { API } from 'aws-amplify'
+import Router from 'next/router'
 
 import ProgramApis from '@/app/program/api'
 import getFileExtension from '@/utils/get-file-extension'
@@ -57,7 +58,7 @@ const { withStore, useStore: useActiveProgram } = createStoreWithContext(
         program: { id, status },
       } = get()
 
-      const program = await API.put('user', '/program', {
+      const program = await API.put('user', '/program/publish', {
         body: { id, status: status === 'DRAFT' ? 'PUBLISHED' : 'DRAFT' },
       }).catch(handleApiError)
 
@@ -76,8 +77,8 @@ const { withStore, useStore: useActiveProgram } = createStoreWithContext(
 
       await ProgramApis.deleteProgram(id)
 
-      // await Router.push('/program')
-      // Router.reload()
+      await Router.push('/program')
+      Router.reload()
     },
     getFileUploadUrl: async (type, file) => {
       const {

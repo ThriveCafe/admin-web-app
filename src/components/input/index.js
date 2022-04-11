@@ -4,7 +4,16 @@ import { always, pathOr } from 'ramda'
 
 import capitalize from '@/utils/capitalize'
 
-const Input = ({ register, errors, name, label, className, ...props }) => {
+const Input = ({
+  register,
+  errors,
+  name,
+  label,
+  className,
+  prefix,
+  suffix,
+  ...props
+}) => {
   const error = pathOr('', [name, 'message'])(errors)
 
   return (
@@ -12,6 +21,11 @@ const Input = ({ register, errors, name, label, className, ...props }) => {
       <label className='block text-sm font-medium text-gray-700'>
         {label}
         <div className='relative mt-1 rounded-md shadow-sm'>
+          {Boolean(prefix) && (
+            <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
+              <span className='text-gray-500 sm:text-sm'>{prefix}</span>
+            </div>
+          )}
           <input
             name={name}
             {...props}
@@ -20,6 +34,7 @@ const Input = ({ register, errors, name, label, className, ...props }) => {
               error
                 ? 'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500'
                 : '',
+              prefix ? 'pl-6' : '',
               className,
             )}
             {...register(name)}
@@ -30,6 +45,11 @@ const Input = ({ register, errors, name, label, className, ...props }) => {
                 className='h-5 w-5 text-red-500'
                 aria-hidden='true'
               />
+            </div>
+          )}
+          {Boolean(suffix) && (
+            <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3'>
+              <span className='text-gray-500 sm:text-sm'>{suffix}</span>
             </div>
           )}
         </div>

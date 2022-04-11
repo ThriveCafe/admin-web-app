@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import General from '@/app/program/active/components/general'
 import Preview from '@/app/program/active/components/preview'
-import Scoring from '@/app/program/active/components/scoring'
+import RegistrationOptions from '@/app/program/active/components/registration-options'
 import AllItems from '@/app/program/components/all-items'
 import useActiveProgram, {
   withActiveProgramStore,
@@ -14,7 +14,7 @@ import protectedRoute from '@/utils/protected-route'
 
 const tabs = [
   { name: 'General', component: <General /> },
-  { name: 'Registration Options', component: <Scoring /> },
+  { name: 'Registration Options', component: <RegistrationOptions /> },
   { name: 'Registrations', component: <Preview /> },
 ]
 
