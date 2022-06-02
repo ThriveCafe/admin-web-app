@@ -21,8 +21,8 @@ const updateProgramSelector = propOr(identity, 'updateProgram')
 
 const Item = SortableElement(({ item }) => {
   return (
-    <div className='mx-4 inline-block w-96'>
-      <div className='aspect-w-16 aspect-h-9'>
+    <div className='relative my-4 h-36'>
+      <div className='aspect-[16/9] h-full'>
         {item.type === 'IMAGE' ? (
           <img
             src={item.url}
@@ -39,7 +39,7 @@ const Item = SortableElement(({ item }) => {
 
 const List = SortableContainer(({ items }) => {
   return (
-    <div className='overflow-x-auto whitespace-nowrap'>
+    <div className='h-96 overflow-auto'>
       {items.map((item, index) => (
         <Item key={item.url} index={index} item={item} />
       ))}
@@ -90,7 +90,7 @@ const Gallery = () => {
     <div className='my-8'>
       <SectionHeader title='Gallery' />
 
-      <List items={gallery} onSortEnd={sortEndHandler} axis='x' />
+      <List items={gallery} onSortEnd={sortEndHandler} />
 
       <div className='flex w-full justify-end'>
         <Button
