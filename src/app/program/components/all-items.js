@@ -12,12 +12,12 @@ const AllItems = () => {
   const programs = useAllProgram(allProgramsSelector)
 
   return (
-    <div className='w-1/3 overflow-hidden bg-white shadow sm:rounded-md'>
+    <div className='flex w-1/3 flex-col overflow-hidden bg-white shadow sm:rounded-md'>
       <div className='flex w-full justify-between p-4 align-middle'>
         <h2 className='font-semibold'>All Programs</h2>
         <Create />
       </div>
-      <ul className='divide-y divide-gray-200'>
+      <ul className='h-full flex-1 divide-y divide-gray-200 overflow-auto'>
         {programs.map(({ id, status, title }) => (
           <li key={id}>
             <Link href={`/program/${id}`} className='block hover:bg-gray-50'>

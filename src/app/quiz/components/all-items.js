@@ -11,12 +11,12 @@ const AllItems = () => {
   const quizzes = useAllQuiz(allQuizzesSelector)
 
   return (
-    <div className='w-1/3 overflow-hidden bg-white shadow sm:rounded-md'>
+    <div className='flex w-1/3 flex-col overflow-hidden bg-white shadow sm:rounded-md'>
       <div className='flex w-full justify-between p-4 align-middle'>
         <h2 className='font-semibold'>All Quizzes</h2>
         <Create />
       </div>
-      <ul className='divide-y divide-gray-200'>
+      <ul className='h-full flex-1 divide-y divide-gray-200 overflow-auto'>
         {quizzes.map(({ id, status, title }) => (
           <li key={id}>
             <Link href={`/quiz/${id}`} className='block hover:bg-gray-50'>
