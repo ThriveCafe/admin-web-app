@@ -1,4 +1,3 @@
-import 'survey-core/modern.min.css'
 import 'survey-core/defaultV2.min.css'
 
 import ms from 'ms'

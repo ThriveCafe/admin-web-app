@@ -1,6 +1,9 @@
+import 'survey-core/defaultV2.min.css'
+
 import { pathOr } from 'ramda'
 import { useMemo } from 'react'
-import { Model, Survey } from 'survey-react'
+import { Model } from 'survey-core'
+import { Survey } from 'survey-react-ui'
 
 import ScoreForm from '@/app/quiz/active/components/scoring/components/score-form'
 import { afterRenderQuestionHandler } from '@/app/quiz/active/components/scoring/utils'
