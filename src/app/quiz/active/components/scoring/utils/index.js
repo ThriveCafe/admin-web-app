@@ -12,9 +12,12 @@ export const afterRenderQuestionHandler =
         const data = {
           el: htmlElement,
           name: question?.propertyHash?.name,
-          choices: question?.propertyHash?.choices?.map(
-            (choice) => choice.propertyHash.value,
-          ),
+          choices:
+            question.constructor.name === 'QuestionBooleanModel'
+              ? ['yes', 'no']
+              : question?.propertyHash?.choices?.map(
+                  (choice) => choice.propertyHash.value,
+                ),
         }
 
         if (!draft[data.name]) {
