@@ -8,16 +8,13 @@ export const afterRenderQuestionHandler =
 
     const { htmlElement, question } = options
 
-    // eslint-disable-next-line no-console
-    console.log({ question })
-
     updateScores(
       produce((draft) => {
         const data = {
           el: htmlElement,
           name: question?.propertyHash?.name,
           choices:
-            question.constructor.name === 'QuestionBooleanModel'
+            question.getType() === 'boolean'
               ? ['yes', 'no']
               : question?.propertyHash?.choices?.map(
                   (choice) => choice.propertyHash.value,
