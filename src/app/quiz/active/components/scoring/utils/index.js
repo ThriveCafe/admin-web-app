@@ -7,6 +7,10 @@ export const afterRenderQuestionHandler =
     options.question.readOnly = true
 
     const { htmlElement, question } = options
+
+    // eslint-disable-next-line no-console
+    console.log({ question })
+
     updateScores(
       produce((draft) => {
         const data = {
