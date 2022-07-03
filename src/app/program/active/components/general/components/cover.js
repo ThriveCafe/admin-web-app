@@ -13,11 +13,13 @@ import delay from '@/utils/delay'
 
 const coverSelector = pathOr({}, ['program', 'cover'])
 const mutateProgramSelector = propOr(identity, 'mutateProgram')
+const deleteCoverSelector = propOr(identity, 'deleteCover')
 const getFileUploadUrlSelector = propOr(identity, 'getFileUploadUrl')
 
 const Cover = () => {
   const cover = useActiveProgram(coverSelector)
   const mutateProgram = useActiveProgram(mutateProgramSelector)
+  const deleteCover = useActiveProgram(deleteCoverSelector)
   const getFileUploadUrl = useActiveProgram(getFileUploadUrlSelector)
 
   const [showCoverImageUploader, toggleCoverImageUploader] = useToggle(false)
@@ -84,6 +86,13 @@ const Cover = () => {
           >
             Change
           </Button>
+          <Button
+            type='button'
+            onClick={() => deleteCover('image')}
+            className='ml-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+          >
+            Delete
+          </Button>
         </div>
       </div>
       <div className='mt-8'>
@@ -127,6 +136,13 @@ const Cover = () => {
             className='rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
           >
             Change
+          </Button>
+          <Button
+            type='button'
+            onClick={() => deleteCover('video')}
+            className='ml-2 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+          >
+            Delete
           </Button>
         </div>
       </div>

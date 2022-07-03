@@ -95,6 +95,19 @@ const { withStore, useStore: useActiveProgram } = createStoreWithContext(
         extension,
       })
     },
+    deleteCover: async (type) => {
+      const {
+        program: { id },
+      } = get()
+
+      const program = await ProgramApis.deleteProgramCover(id, type)
+
+      if (program) {
+        const { mutateProgram } = get()
+
+        await mutateProgram()
+      }
+    },
   }),
   (data, query) => {
     return {

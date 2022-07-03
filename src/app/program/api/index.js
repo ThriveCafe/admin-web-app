@@ -34,6 +34,8 @@ const ProgramApis = {
     }).catch(handleApiError),
   deleteProgram: (id) =>
     API.del('user', `/program/${id}`, {}).catch(handleApiError),
+  deleteProgramCover: (id, type) =>
+    API.del('user', `/program/${id}/cover/${type}`, {}).catch(handleApiError),
   getFileUploadUrl: ({ type, id, contentType, extension }) =>
     API.post('user', '/program/upload-url', {
       body: {
