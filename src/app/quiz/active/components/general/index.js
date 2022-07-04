@@ -43,6 +43,13 @@ const General = () => {
       >
         <Input
           className='mb-4'
+          label='ID'
+          value={quiz.id}
+          type='text'
+          disabled
+        />
+        <Input
+          className='mb-4'
           name='title'
           label='Title'
           type='text'
