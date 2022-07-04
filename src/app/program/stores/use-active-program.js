@@ -108,6 +108,12 @@ const { withStore, useStore: useActiveProgram } = createStoreWithContext(
         await mutateProgram()
       }
     },
+    addQuizProgramMap: async ({ quizId, sessionIndex }) => {
+      const {
+        program: { id },
+      } = get()
+      return ProgramApis.createQuizProgramMap(id, quizId, sessionIndex)
+    },
   }),
   (data, query) => {
     return {

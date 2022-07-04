@@ -1,3 +1,5 @@
+import QuizProgramMap from '@/app/program/active/components/general/components/quiz'
+
 import Cover from './components/cover'
 import Gallery from './components/gallery'
 import Info from './components/info'
@@ -10,6 +12,7 @@ const General = () => {
       <Info />
       <Cover />
       <Seo />
+      <QuizProgramMap />
       <Gallery />
       <Resources />
     </div>

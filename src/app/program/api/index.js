@@ -36,6 +36,16 @@ const ProgramApis = {
     API.del('user', `/program/${id}`, {}).catch(handleApiError),
   deleteProgramCover: (id, type) =>
     API.del('user', `/program/${id}/cover/${type}`, {}).catch(handleApiError),
+  getQuizProgramMap: (programId) =>
+    API.get('user', `/quiz-program/${programId}`, {}).catch(handleApiError),
+  deleteQuizProgramMap: (programId, quizId) =>
+    API.del('user', `/quiz-program/${programId}/${quizId}`, {}).catch(
+      handleApiError,
+    ),
+  createQuizProgramMap: (programId, quizId, sessionIndex) =>
+    API.post('user', `/quiz-program`, {
+      body: { programId, quizId, sessionIndex },
+    }).catch(handleApiError),
   getFileUploadUrl: ({ type, id, contentType, extension }) =>
     API.post('user', '/program/upload-url', {
       body: {
