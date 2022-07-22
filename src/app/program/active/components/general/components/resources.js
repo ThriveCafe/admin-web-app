@@ -75,14 +75,14 @@ const Item = SortableElement(({ item, deleteResource, updateResource }) => {
         <span className='text-xs'>Session</span>
         <select
           className='block w-24 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-          value={item.sessionIndex || 1}
+          value={item.sessionIndex}
           onChange={(e) =>
             updateResource({ ...item, sessionIndex: Number(e.target.value) })
           }
         >
           {Array.from({ length: 10 }).map((_, i) => (
             // eslint-disable-next-line react/no-array-index-key
-            <option key={`item${i}`}>{i + 1}</option>
+            <option key={`item${i}`}>{i}</option>
           ))}
         </select>
       </label>
