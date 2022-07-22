@@ -56,22 +56,22 @@ const Item = SortableElement(({ item, deleteResource, updateResource }) => {
             <img
               src={item.url}
               alt='Resource Item'
-              className='h-full w-full object-cover'
+              className='h-[80%] w-full object-contain'
             />
-            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+            <p className='pl-1 pr-1'>{ExtractTitle(item.url)}</p>
           </>
         ) : item.type.toUpperCase() === 'VIDEO' ? (
           <>
-            <ReactPlayer url={item.url} height='100%' width='100%' controls />
-            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+            <ReactPlayer url={item.url} height='80%' width='100%' controls />
+            <p className='pl-1 pr-1'>{ExtractTitle(item.url)}</p>
           </>
         ) : item.type.toUpperCase() === 'QUIZ' ? (
-          <p className='pl-2'>Quiz: {item.title}</p>
+          <p className='pl-1 pr-1'>Quiz: {item.title}</p>
         ) : (
           <p>Document</p>
         )}
       </div>
-      <label>
+      <label className='w-[60%] pr-[20px]'>
         <span className='text-xs'>Session</span>
         <select
           className='block w-24 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
