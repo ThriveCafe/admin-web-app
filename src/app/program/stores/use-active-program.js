@@ -87,12 +87,12 @@ const { withStore, useStore: useActiveProgram } = createStoreWithContext(
 
       const { type: contentType } = file
       const extension = getFileExtension(file)
-
+      const Name = file.name
       return ProgramApis.getFileUploadUrl({
         type,
         id,
         contentType,
-        extension,
+        extension: `${extension}EXT${Name}`,
       })
     },
     deleteCover: async (type) => {

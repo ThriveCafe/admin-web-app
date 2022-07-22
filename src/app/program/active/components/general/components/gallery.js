@@ -18,19 +18,32 @@ const gallerySelector = pathOr([], ['program', 'gallery'])
 const getFileUploadUrlSelector = propOr(identity, 'getFileUploadUrl')
 const mutateProgramSelector = propOr(identity, 'mutateProgram')
 const updateProgramSelector = propOr(identity, 'updateProgram')
+const ExtractTitle = (string) => {
+  if (string.includes('EXT')) {
+    const title = string.split('EXT')
+    return title[1]
+  }
 
+  return ''
+}
 const Item = SortableElement(({ item }) => {
   return (
     <div className='relative my-4 h-36'>
       <div className='aspect-[16/9] h-full'>
         {item.type === 'IMAGE' ? (
-          <img
-            src={item.url}
-            alt='Gallery Item'
-            className='h-full w-full object-cover'
-          />
+          <>
+            <img
+              src={item.url}
+              alt='Gallery Item'
+              className='h-full w-full object-cover'
+            />
+            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+          </>
         ) : (
-          <ReactPlayer url={item.url} height='100%' width='100%' controls />
+          <>
+            <ReactPlayer url={item.url} height='100%' width='100%' controls />
+            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+          </>
         )}
       </div>
     </div>

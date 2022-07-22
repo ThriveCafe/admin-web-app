@@ -32,6 +32,14 @@ const getFileUploadUrlSelector = propOr(identity, 'getFileUploadUrl')
 const mutateProgramSelector = propOr(identity, 'mutateProgram')
 const updateProgramSelector = propOr(identity, 'updateProgram')
 
+const ExtractTitle = (string) => {
+  if (string.includes('EXT')) {
+    const title = string.split('EXT')
+    return title[1]
+  }
+
+  return ''
+}
 const Item = SortableElement(({ item, deleteResource, updateResource }) => {
   return (
     <div className='relative my-4 flex h-36 items-center justify-between bg-gray-200 pr-2'>
@@ -44,13 +52,19 @@ const Item = SortableElement(({ item, deleteResource, updateResource }) => {
         )}
       >
         {item.type.toUpperCase() === 'IMAGE' ? (
-          <img
-            src={item.url}
-            alt='Resource Item'
-            className='h-full w-full object-cover'
-          />
+          <>
+            <img
+              src={item.url}
+              alt='Resource Item'
+              className='h-full w-full object-cover'
+            />
+            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+          </>
         ) : item.type.toUpperCase() === 'VIDEO' ? (
-          <ReactPlayer url={item.url} height='100%' width='100%' controls />
+          <>
+            <ReactPlayer url={item.url} height='100%' width='100%' controls />
+            <p className='pl-2'>{ExtractTitle(item.url)}</p>
+          </>
         ) : item.type.toUpperCase() === 'QUIZ' ? (
           <p className='pl-2'>Quiz: {item.title}</p>
         ) : (
@@ -167,7 +181,6 @@ const Resources = () => {
       ),
     [getFileUploadUrl, uploadType],
   )
-
   const sortEndHandler = useCallback(
     ({ oldIndex, newIndex }) =>
       updateProgram({
