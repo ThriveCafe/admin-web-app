@@ -1,6 +1,6 @@
 import { arrayMoveImmutable } from 'array-move'
 import ms from 'ms'
-import { identity, pathOr, propOr } from 'ramda'
+import { identity, pathOr, propOr, remove } from 'ramda'
 import { useCallback, useState } from 'react'
 import ReactPlayer from 'react-player/lazy'
 import { SortableContainer, SortableElement } from 'react-sortable-hoc'
@@ -26,35 +26,48 @@ const ExtractTitle = (string) => {
 
   return ''
 }
-const Item = SortableElement(({ item }) => {
+const Item = SortableElement(({ item, deleteResource }) => {
   return (
     <div className='relative my-4 h-36'>
-      <div className='aspect-[16/9] h-full'>
-        {item.type === 'IMAGE' ? (
-          <>
-            <img
-              src={item.url}
-              alt='Gallery Item'
-              className='h-full w-full object-cover'
-            />
-            <p className='pl-2'>{ExtractTitle(item.url)}</p>
-          </>
-        ) : (
-          <>
-            <ReactPlayer url={item.url} height='100%' width='100%' controls />
-            <p className='pl-2'>{ExtractTitle(item.url)}</p>
-          </>
-        )}
+      <div className='flex items-center justify-between'>
+        <div className='aspect-[16/9] h-full w-full max-w-[245px]'>
+          {item.type === 'IMAGE' ? (
+            <>
+              <img
+                src={item.url}
+                alt='Gallery Item'
+                className='h-full w-full object-cover'
+              />
+              <p className='pl-2'>{ExtractTitle(item.url)}</p>
+            </>
+          ) : (
+            <>
+              <ReactPlayer url={item.url} height='100%' width='100%' controls />
+              <p className='pl-2'>{ExtractTitle(item.url)}</p>
+            </>
+          )}
+        </div>
+        <Button
+          className='mt-2 mr-2 inline-flex w-full w-fit justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+          onClick={() => deleteResource()}
+        >
+          Delete
+        </Button>
       </div>
     </div>
   )
 })
 
-const List = SortableContainer(({ items }) => {
+const List = SortableContainer(({ items, deleteResource }) => {
   return (
     <div className='h-96 overflow-auto'>
       {items.map((item, index) => (
-        <Item key={item.url} index={index} item={item} />
+        <Item
+          key={item.url}
+          index={index}
+          item={item}
+          deleteResource={() => deleteResource(index)}
+        />
       ))}
       {!items.length && (
         <div className='w-96 shrink-0 first:ml-8 last:mr-8'>
@@ -91,6 +104,14 @@ const Gallery = () => {
     [getFileUploadUrl, uploadType],
   )
 
+  const deleteResource = useCallback(
+    (index) =>
+      updateProgram({
+        gallery: remove(index, 1, gallery),
+      }),
+    [gallery, updateProgram],
+  )
+
   const sortEndHandler = useCallback(
     ({ oldIndex, newIndex }) =>
       updateProgram({
@@ -103,7 +124,11 @@ const Gallery = () => {
     <div className='my-8'>
       <SectionHeader title='Gallery' />
 
-      <List items={gallery} onSortEnd={sortEndHandler} />
+      <List
+        items={gallery}
+        onSortEnd={sortEndHandler}
+        deleteResource={deleteResource}
+      />
 
       <div className='flex w-full justify-end'>
         <Button
